@@ -58,8 +58,8 @@ struct MemberDetail: View {
                 DetailRow(title: "Nama Kantor", value: member.namaKantor)
                 DetailRow(title: "Nomor Telepon Kantor", value: member.nomorKantor)
                 DetailRow(title: "Merk", value: "Honda")
-                DetailRow(title: "Type Mobil", value: member.tipeKendaraan)
-                DetailRow(title: "Warna Mobil", value: member.warna)
+                DetailRow(title: "Tipe Kendaraan", value: member.tipeKendaraan)
+                DetailRow(title: "Warna Kendaraan", value: member.warna)
             }
             .padding(.horizontal)
             

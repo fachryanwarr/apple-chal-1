@@ -31,10 +31,10 @@ struct MemberCard: View{
                     .frame(width: 330, height: 80)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .stroke(Color.black, lineWidth: 1)
+//                    )
                 
                 HStack{
                     Spacer()
@@ -58,10 +58,10 @@ struct MemberCard: View{
             .frame(width: 350, height: 130)
             .background(Color.blue.opacity(0.4))
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.black)
-            )
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 10)
+//                    .stroke(Color.black)
+//            )
         }
     }
 
