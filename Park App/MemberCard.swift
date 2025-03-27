@@ -10,7 +10,7 @@ struct MemberCard: View{
     var nama: String
     var nomorTelp: String
     var nomorPlat: String
-    var tipeKendaraan: String
+    var jenisKendaraan: String
     
     var body: some View{
             VStack(alignment: .leading){
@@ -45,7 +45,7 @@ struct MemberCard: View{
                         .padding(.leading, 10)
         
                     Spacer()
-                    if(tipeKendaraan.caseInsensitiveCompare("mobil") == .orderedSame){
+                    if(jenisKendaraan.caseInsensitiveCompare("mobil") == .orderedSame){
                         Image(systemName: "car")
                     }else{
                         Image(systemName: "motorcycle")
@@ -66,5 +66,5 @@ struct MemberCard: View{
     }
 
 #Preview{
-    MemberCard(nama: "Vanessa", nomorTelp: "081118929083", nomorPlat: "B 2213 ACW", tipeKendaraan: "mobil")
+    MemberCard(nama: "Vanessa", nomorTelp: "081118929083", nomorPlat: "B 2213 ACW", jenisKendaraan: "mobil")
 }
