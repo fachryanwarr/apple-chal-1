@@ -4,7 +4,7 @@ import SwiftUI
 struct OnboardingApp: App {
     var body: some Scene {
         WindowGroup {
-            MemberListView()
+            ContentView()
         }
     }
 }

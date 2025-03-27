@@ -61,7 +61,7 @@ struct MemberListView: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height * 0.7)
                     
-                }else{
+                } else{
                     
                     ForEach(filteredMembers) {member in NavigationLink(destination: MemberDetail(member: member)){
                         MemberCard(nama: member.nama, nomorTelp: member.nomorTelp, nomorPlat: member.nomorPlat, jenisKendaraan: member.jenisKendaraan)
@@ -73,9 +73,10 @@ struct MemberListView: View {
                     .background(Color.white)
                 }
                     
-            }.searchable(text: $searchText, prompt: "Cari member berdasarkan nomor plat")
+            }.searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Cari member berdasarkan nomor plat")
                 .tint(.blue)
                 .navigationTitle("Daftar Member")
+                .navigationBarTitleDisplayMode(.large)
 
         }
         
