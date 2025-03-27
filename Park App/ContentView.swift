@@ -9,6 +9,7 @@ struct ContentView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
+
             
             Image(systemName: "qrcode.viewfinder")
                 .resizable()
