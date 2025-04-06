@@ -7,12 +7,10 @@ struct OnboardingView: View {
         NavigationStack {
             VStack {
                 TabView(selection: $currentPage) {
-                    OnboardingPage(image: "halaman1", title: "Selamat Datang", description: "Solusi cerdas untuk keamanan dan pengelolaan parkir yang lebih efisien🫡")
-                        .tag(0)
-                    OnboardingPage(image: "Frame 4", title: "Informasi Aplikasi", description: "Teknologi yang dirancang untuk membantu memindai plat nomor kendaraan🚗")
-                        .tag(1)
-                    OnboardingPage(image: "halaman3", title: "Temukan Member Secure Parkir", description: "Gunakan fitur pemindaian untuk dapatkan akses daftar kendaraan yang terdaftar.")
-                        .tag(2)
+                    ForEach(Array(DummyOnboarding.pages.enumerated()), id: \.offset) { index, item in
+                        OnboardingPage(image: item.image, title: item.title, description: item.description)
+                            .tag(index)
+                    }
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .frame(maxHeight: .infinity)
@@ -29,7 +27,6 @@ struct OnboardingView: View {
                             .animation(.spring(), value: currentPage)
                     }
                 }
-                .padding(.bottom, 20)
                 
                 if currentPage == 2 {
                     VStack(spacing: 10) {
@@ -37,11 +34,10 @@ struct OnboardingView: View {
                             Text("Scan Plat Nomor")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, minHeight: 60)
+                                .frame(maxWidth: .infinity, minHeight: 50)
                                 .background(Color.blue)
                                 .cornerRadius(12)
                         }
-                        .padding(.horizontal)
                         
                         NavigationLink(destination: MemberListView()) {
                             Text("List Daftar Member")
@@ -55,8 +51,9 @@ struct OnboardingView: View {
                                         .stroke(Color.black, lineWidth: 1)
                                 )
                         }
-                        .padding(.horizontal)
                     }
+                    .padding(.top, 10)
+                    .padding(.horizontal)
                 }
             }
         }
