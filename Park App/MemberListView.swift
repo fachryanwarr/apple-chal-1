@@ -1,10 +1,3 @@
-//
-//  MemberSearchView.swift
-//  Park App
-//
-//  Created by Valencia Sutanto on 25/03/25.
-//
-
 import SwiftUI
 
 struct MemberListView: View {
