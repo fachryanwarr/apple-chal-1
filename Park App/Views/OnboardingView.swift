@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @AppStorage("hasSeenIntroPages") private var hasSeenIntroPages = false
     @State private var currentPage = 0
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -16,8 +17,23 @@ struct OnboardingView: View {
                 .frame(maxHeight: .infinity)
                 .ignoresSafeArea()
                 .animation(.easeInOut(duration: 0.5), value: currentPage)
+                .onAppear {
+                    // Saat muncul pertama kali, jika sudah pernah lihat, langsung lompat ke halaman ke-3
+                    if hasSeenIntroPages {
+                        currentPage = 2
+                    }
+                }
+                .onChange(of: currentPage) { newValue in
+                    // Saat user sampai halaman ke-2 (index 2), set status pernah lihat
+                    if newValue == 2 {
+                        hasSeenIntroPages = true
+                    }
+                }
                 
-                // Custom Page Indicators
+
+
+
+                // Page Indicators
                 HStack(spacing: 8) {
                     ForEach(0..<3) { index in
                         Circle()
@@ -27,7 +43,7 @@ struct OnboardingView: View {
                             .animation(.spring(), value: currentPage)
                     }
                 }
-                
+
                 if currentPage == 2 {
                     VStack(spacing: 10) {
                         NavigationLink(destination: CaptureView()) {
@@ -38,7 +54,7 @@ struct OnboardingView: View {
                                 .background(Color.blue)
                                 .cornerRadius(12)
                         }
-                        
+
                         NavigationLink(destination: MemberListView()) {
                             Text("List Daftar Member")
                                 .font(.system(size: 18, weight: .semibold))
@@ -58,11 +74,5 @@ struct OnboardingView: View {
             }
         }
         .padding()
-    }
-}
-
-#Preview {
-    NavigationStack{
-        OnboardingView()
     }
 }
