@@ -1,7 +1,7 @@
 import Foundation
 
 struct Member: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let nama: String
     let nomorTelp: String
     let nomorPlat: String
@@ -15,7 +15,7 @@ struct Member: Identifiable, Codable {
 
 struct DummyMembers {
     static let data: [Member] = [
-        Member(nama: "Vanessa", nomorTelp: "081118929083", nomorPlat: "B 2213 ACW", jenisKendaraan: "mobil", namaKantor: "Apple Academy", nomorKantor: "0812345678", merk: "Toyota", tipeKendaraan: "Brio Satya E 2019", warna: "Merah"),
+        Member(nama: "Vanessa", nomorTelp: "08979661702", nomorPlat: "B 2213 ACW", jenisKendaraan: "mobil", namaKantor: "Apple Academy", nomorKantor: "08119871188", merk: "Toyota", tipeKendaraan: "Brio Satya E 2019", warna: "Merah"),
         Member(nama: "Rizky", nomorTelp: "081234567890", nomorPlat: "B 1234 XYZ", jenisKendaraan: "Motor", namaKantor: "Traveloka", nomorKantor: "081278945612", merk: "Honda", tipeKendaraan: "Vario 150", warna: "Hitam"),
         Member(nama: "Alya", nomorTelp: "081298765432", nomorPlat: "B 6789 DEF", jenisKendaraan: "Mobil", namaKantor: "SinarMas", nomorKantor: "081366554433", merk: "Honda", tipeKendaraan: "HR-V 2020", warna: "Putih"),
         Member(nama: "Dimas", nomorTelp: "081376543210", nomorPlat: "B 4321 GHI", jenisKendaraan: "Motor", namaKantor: "Purwadika", nomorKantor: "081334455667", merk: "Yamaha", tipeKendaraan: "NMax 2021", warna: "Biru"),

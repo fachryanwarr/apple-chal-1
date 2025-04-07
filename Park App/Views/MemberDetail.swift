@@ -31,7 +31,7 @@ struct MemberDetail: View {
                 DetailRow(title: "Nama Pemilik Kendaraan", value: member.nama)
                 DetailRow(title: "Nomor Telepon", value: member.nomorTelp, isPhone: true)
                 DetailRow(title: "Nama Kantor", value: member.namaKantor)
-                DetailRow(title: "Nomor Telepon Kantor", value: member.nomorKantor)
+                DetailRow(title: "Nomor Telepon Kantor", value: member.nomorKantor, isPhone: true)
                 DetailRow(title: "Merk", value: "Honda")
                 DetailRow(title: "Tipe Kendaraan", value: member.tipeKendaraan)
                 DetailRow(title: "Warna Kendaraan", value: member.warna)
@@ -39,15 +39,33 @@ struct MemberDetail: View {
             .padding(.horizontal)
             
             Spacer()
+            
         }
         .padding(.horizontal)
+        
     }
+
 }
 
 struct DetailRow: View {
     var title: String
     var value: String
     var isPhone: Bool = false
+    
+    func openWhatsApp(){
+        var phone = value
+        let text = "Hello!"
+        
+        if phone.hasPrefix("0") {
+            phone = "62" + phone.dropFirst()
+        }
+        
+        let urlStr = "https://wa.me/\(phone)?text=\(text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)"
+        
+        if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -68,7 +86,7 @@ struct DetailRow: View {
 
                 if isPhone {
                     Button(action: {
-                        // Call action
+                        openWhatsApp()
                     }) {
                         Image(systemName: "phone.fill")
                             .foregroundColor(.blue)
