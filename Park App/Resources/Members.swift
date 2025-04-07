@@ -1,7 +1,7 @@
 import Foundation
 
 struct Member: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let nama: String
     let nomorTelp: String
     let nomorPlat: String
