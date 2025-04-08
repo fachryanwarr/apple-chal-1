@@ -3,8 +3,7 @@ import AVFoundation
 
 struct CaptureView: View {
     @StateObject private var viewModel = CaptureViewModel()
-//    @State private var selectedText: String = ""
-//    @State private var showTextPicker = false
+    @State private var showMemberModal = false
     
     var body: some View {
         ZStack {
@@ -88,7 +87,7 @@ struct CaptureView: View {
                             .buttonStyle(.borderedProminent)
                             
                             Button {
-                                print("Arrow clicked")
+                                showMemberModal = true
                             } label: {
                                 Image(systemName: "arrowshape.right.fill")
                                     .resizable()
@@ -133,49 +132,42 @@ struct CaptureView: View {
             }
             
             if viewModel.showTextPicker {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        viewModel.showTextPicker = false
-                    }
-                
-                VStack(spacing: 20) {
-                    Text("Choose detected text")
-                        .font(.headline)
-                    
-                    Picker(selection: $viewModel.selectedText) {
-                        Text("Choose one...").tag("")
-                        ForEach(viewModel.identifiedTexts, id: \.self) { text in
-                            Text(text).tag(text)
+                TextPickerModalView(
+                    show: $viewModel.showTextPicker,
+                    selectedText: $viewModel.selectedText,
+                    identifiedTexts: viewModel.identifiedTexts
+                )
+            }
+            
+            let filteredMembers = DummyMembers.data.filter {
+                $0.nomorPlat.lowercased().contains(viewModel.selectedText.lowercased())
+            }
+            
+            if showMemberModal {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            print("hai")
+                            showMemberModal = false
                         }
-                    } label: {
-                        Text("")
-                    }
-                    .pickerStyle(WheelPickerStyle())
-                    .frame(height: 150)
-                    .frame(maxWidth: .infinity)
-                    .clipped()
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    
-                    Button {
-                        viewModel.showTextPicker = false
-                    } label: {
-                        Text("Choose")
-                            .fontWeight(.semibold)
+
+                    VStack {
+                        ScrollView {
+                            VStack(spacing: 16) {
+                                ForEach(filteredMembers) { member in
+                                    DetailPopupView(member: member)
+                                }
+                            }
+                            .padding(.vertical, 20)
                             .padding(.horizontal, 40)
-                            .padding(.vertical, 12)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(Rectangle())
                 }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(20)
-                .padding(.horizontal, 30)
-                .shadow(radius: 20)
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut, value: showMemberModal)
             }
         }
     }
