@@ -3,7 +3,14 @@ import SwiftUI
 struct OnboardingView: View {
     @AppStorage("hasSeenIntroPages") private var hasSeenIntroPages = false
     @State private var currentPage = 0
-
+    @Environment(\.colorScheme) var colorScheme
+    
+    init() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = .gray
+        UIPageControl.appearance().pageIndicatorTintColor = .black
+    }
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -30,9 +37,6 @@ struct OnboardingView: View {
                     }
                 }
                 
-
-
-
                 // Page Indicators
                 HStack(spacing: 8) {
                     ForEach(0..<3) { index in
@@ -43,7 +47,7 @@ struct OnboardingView: View {
                             .animation(.spring(), value: currentPage)
                     }
                 }
-
+                
                 if currentPage == 2 {
                     VStack(spacing: 10) {
                         NavigationLink(destination: CaptureView()) {
@@ -54,7 +58,7 @@ struct OnboardingView: View {
                                 .background(Color.blue)
                                 .cornerRadius(12)
                         }
-
+                        
                         NavigationLink(destination: MemberListView()) {
                             Text("List Daftar Member")
                                 .font(.system(size: 18, weight: .semibold))
@@ -73,6 +77,9 @@ struct OnboardingView: View {
                 }
             }
         }
-        .padding()
     }
+}
+
+#Preview {
+    OnboardingView()
 }

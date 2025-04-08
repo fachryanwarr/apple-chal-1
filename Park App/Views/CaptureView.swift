@@ -166,8 +166,6 @@ struct CaptureView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
                 }
-                .transition(.move(edge: .bottom))
-                .animation(.easeInOut, value: showMemberModal)
             }
         }
     }

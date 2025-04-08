@@ -10,6 +10,7 @@ struct TextPickerModalView: View {
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
                 .onTapGesture {
+                    print("hello")
                     show = false
                 }
             
