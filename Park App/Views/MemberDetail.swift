@@ -43,6 +43,7 @@ struct MemberDetail: View {
         }
         .padding(.horizontal)
         
+        
     }
 
 }
@@ -70,46 +71,41 @@ struct DetailRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
-                .font(.footnote)
-                .foregroundColor(.black)
+                .font(.headline)
                 .fontWeight(.semibold)
 
             HStack {
                 Text(value)
+                    .foregroundColor(.black.opacity(0.65))
+                    .cornerRadius(8)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-//                    .cornerRadius(8)
+                    .background(.black.opacity(0.03))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.blue)
+                            .stroke(Color.black.opacity(0.2))
                     )
 
                 if isPhone {
                     Button(action: {
                         openWhatsApp()
-                    }) {
-                        Image(systemName: "phone.fill")
-                            .foregroundColor(.blue)
+                    }){
+                        Image(systemName: "ellipsis.message.fill")
+                            .foregroundColor(.white)
                             .padding(16)
-//                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.blue)
-                            )
+                            .background(.blue)
+                            .cornerRadius(8)
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 8)
+//                                    .stroke(Color.blue)
+//                            )
                     }
                 }
             }
         }
         .navigationTitle("Detail Member")
         .navigationBarTitleDisplayMode(.inline)
-//        .toolbar {
-//            ToolbarItem(placement: .principal) {
-//                Text("Detail Member")
-//                    .font(.system(size: 30, weight: .bold))
-//                    .foregroundColor(.black)
-//                    .padding(.top, 15)
-//            }
-//        }
+
     }
 }
 
