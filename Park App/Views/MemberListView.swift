@@ -1,27 +1,12 @@
 import SwiftUI
 
 struct MemberListView: View {
-    
-    @State private var selectedMember: Member? = nil
-    @State private var isShowingDetail = false
-    
-    @State private var searchText = ""
-    
-    let members = DummyMembers.data
-    
-    var filteredMembers: [Member]{
-        if searchText.isEmpty{
-            return members
-        }else{
-            return members.filter{$0.nomorPlat.localizedCaseInsensitiveContains(searchText)}
-            
-        }
-    }
+    @StateObject private var viewModel = MemberListViewModel()
     
     var body: some View {
         NavigationStack{
-            ScrollView{
-                if(filteredMembers.isEmpty){
+            ScrollView {
+                if (viewModel.filteredMembers.isEmpty) {
                     VStack {
                         Spacer()
                         
@@ -43,19 +28,16 @@ struct MemberListView: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height * 0.7)
                     
-                } else{
-                    
-                    ForEach(filteredMembers) {member in NavigationLink(destination: MemberDetail(member: member)){
+                } else {
+                    ForEach(viewModel.filteredMembers) { member in NavigationLink(destination: MemberDetail(member: member)){
                         MemberCard(nama: member.nama, nomorTelp: member.nomorTelp, nomorPlat: member.nomorPlat, jenisKendaraan: member.jenisKendaraan)
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding(.horizontal, 10)
                     }
                     .scrollContentBackground(.hidden)
-        
                 }
-                
-            }.searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Cari member berdasarkan nomor plat")
+            }.searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Cari member berdasarkan nomor plat")
                 .tint(.blue)
                 .navigationTitle("Daftar Member")
                 .navigationBarTitleDisplayMode(.large)

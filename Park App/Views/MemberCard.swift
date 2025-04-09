@@ -7,9 +7,9 @@ struct MemberCard: View{
     var jenisKendaraan: String
     
     var body: some View{
-            VStack(alignment: .leading){
-                Grid(alignment: .leading){
-                    GridRow{
+            VStack(alignment: .leading) {
+                Grid(alignment: .leading) {
+                    GridRow {
                         Text("Nama")
                         Text(":")
                         Text(nama)
@@ -18,7 +18,7 @@ struct MemberCard: View{
                     .font(.headline)
                     .foregroundColor(.black)
                     
-                    GridRow{
+                    GridRow {
                         Text("No. Telp")
                         Text(":")
                         Text(nomorTelp)
@@ -42,16 +42,14 @@ struct MemberCard: View{
                         .padding(.leading, 10)
         
                     Spacer()
-                    if(jenisKendaraan.caseInsensitiveCompare("mobil") == .orderedSame){
+                    if (jenisKendaraan.caseInsensitiveCompare("mobil") == .orderedSame) {
                         Image(systemName: "car.fill")
                             .foregroundColor(.white)
-                    }else{
+                    } else {
                         Image(systemName: "motorcycle.fill")
                             .foregroundColor(.white)
                     }
-                    
                 }
-                
             }
             .padding(10)
             .frame(width: 350, height: 130)
