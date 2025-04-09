@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DetailPopupView: View {
+    @StateObject private var memberViewModel = MemberListViewModel()
     let member: Member
     
     var body: some View {
@@ -68,7 +69,9 @@ struct DetailPopupView: View {
                 Spacer()
                 
                 Button {
-                    
+                    if let url = URL(string: memberViewModel.generateWhatsAppURL(to: member.nomorTelp)) {
+                            UIApplication.shared.open(url)
+                        }
                 } label: {
                     Image(systemName: "ellipsis.message.fill")
                         .resizable()

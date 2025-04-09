@@ -25,7 +25,7 @@ struct MemberDetail: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-          
+            
             // Information Fields
             VStack(spacing: 10) {
                 DetailRow(title: "Nama Pemilik Kendaraan", value: member.nama)
@@ -45,7 +45,7 @@ struct MemberDetail: View {
         
         
     }
-
+    
 }
 
 struct DetailRow: View {
@@ -53,7 +53,7 @@ struct DetailRow: View {
     var value: String
     var isPhone: Bool = false
     
-    func openWhatsApp(){
+    func openWhatsApp() {
         var phone = value
         let text = "Hello!"
         
@@ -67,12 +67,12 @@ struct DetailRow: View {
             UIApplication.shared.open(url)
         }
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.headline)
-
+            
             HStack {
                 Text(value)
                     .foregroundColor(.gray)
@@ -85,7 +85,7 @@ struct DetailRow: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.black.opacity(0.2))
                     )
-
+                
                 if isPhone {
                     Button(action: {
                         openWhatsApp()
@@ -101,7 +101,7 @@ struct DetailRow: View {
         }
         .navigationTitle("Detail Member")
         .navigationBarTitleDisplayMode(.inline)
-
+        
     }
 }
 
