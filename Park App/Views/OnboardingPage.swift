@@ -18,7 +18,6 @@ struct OnboardingPage: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-
             
             Text(description)
                 .font(.body)

@@ -7,47 +7,52 @@ struct TextPickerModalView: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.4)
+            Color.overlay
                 .ignoresSafeArea()
                 .onTapGesture {
-                    print("hello")
                     show = false
                 }
             
             VStack(spacing: 20) {
                 Text("Choose detected text")
                     .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.modalHeader)
                 
-                Picker(selection: $selectedText) {
-                    Text("Choose one...").tag("")
-                    ForEach(identifiedTexts, id: \.self) { text in
-                        Text(text).tag(text)
+                VStack(spacing: 20) {
+                    Picker(selection: $selectedText) {
+                        Text("Choose one...").tag("")
+                        ForEach(identifiedTexts, id: \.self) { text in
+                            Text(text).tag(text)
+                        }
+                    } label: {
+                        Text("")
                     }
-                } label: {
-                    Text("")
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 150)
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+                    .background(Color.modal)
+                    .cornerRadius(12)
+                    
+                    Button {
+                        show = false
+                    } label: {
+                        Text("Choose")
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 40)
+                            .padding(.vertical, 6)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .cornerRadius(10)
                 }
-                .pickerStyle(WheelPickerStyle())
-                .frame(height: 150)
-                .frame(maxWidth: .infinity)
-                .clipped()
-                .background(Color.white)
-                .cornerRadius(12)
+                .padding(.horizontal)
                 
-                Button {
-                    show = false
-                } label: {
-                    Text("Choose")
-                        .fontWeight(.semibold)
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 12)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
             }
-            .padding()
-            .background(Color.white)
+            .padding(.bottom)
+            .background(Color.modal)
             .cornerRadius(20)
             .padding(.horizontal, 30)
             .shadow(radius: 20)

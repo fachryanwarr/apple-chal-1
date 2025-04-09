@@ -6,10 +6,10 @@ struct DetailPopupView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 20) {
-                Image(systemName: "motorcycle.fill")
+                Image(systemName: member.jenisKendaraan == "motor" ? "motorcycle.fill" : "car.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 50)
+                    .frame(width: 40, height: 40)
                     .padding(10)
                     .background(Color.orange)
                     .clipShape(Circle())
@@ -70,17 +70,24 @@ struct DetailPopupView: View {
                 Button {
                     
                 } label: {
-                    Text("Call")
+                    Image(systemName: "ellipsis.message.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
+                        .padding(10)
+                        .background(Color.white.opacity(0.4))
+                        .clipShape(Circle())
+                        .frame(width: 28, height: 28)
                 }
             }
             .padding(.top, 10)
             
         }
         .foregroundStyle(Color.white)
-        .padding(.horizontal)
-        .padding(.vertical, 40)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 30)
         .frame(maxWidth: .infinity)
-        .background(Color.blue)
+        .background(Color.popupBg)
         .cornerRadius(24)
     }
 }

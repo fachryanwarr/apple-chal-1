@@ -18,13 +18,13 @@ struct CaptureView: View {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 350, height: 450)
+                            .frame(width: 350, height: 440)
                             .clipped()
                             .cornerRadius(16)
                             .padding(.horizontal)
                     } else {
                         CapturePreview(session: $viewModel.session)
-                            .frame(width: 350, height: 450)
+                            .frame(width: 350, height: 440)
                             .background(Color.black)
                             .cornerRadius(16)
                             .overlay(RoundedRectangle(cornerRadius: 16)
@@ -66,67 +66,74 @@ struct CaptureView: View {
                     }
                 }
                 
-                if viewModel.capturedImage == nil {
-                    Text("Sejajarkan plat nomor \n kendaraan dengan frame di atas")
-                        .multilineTextAlignment(.center)
-                        .font(.subheadline)
-                        .padding(.horizontal, 60)
-                        .padding(.top, 5)
-                }
-                
-                if let _ = viewModel.capturedImage {
-                    if !viewModel.identifiedTexts.isEmpty {
-                        HStack {
-                            Button(action: {
-                                viewModel.showTextPicker = true
-                            }) {
-                                Text(viewModel.selectedText.isEmpty ? "Choose detected text" : viewModel.selectedText)
-                                    .padding(.vertical, 6)
-                                    .frame(maxWidth: .infinity)
+                VStack(spacing: 14) {
+                    if viewModel.capturedImage == nil {
+                        Text("Sejajarkan plat nomor \n kendaraan dengan frame di atas")
+                            .multilineTextAlignment(.center)
+                            .font(.subheadline)
+                            .padding(.horizontal, 60)
+                            .padding(.top, 5)
+                    }
+                    
+                    if let _ = viewModel.capturedImage {
+                        if !viewModel.identifiedTexts.isEmpty {
+                            HStack {
+                                Button(action: {
+                                    viewModel.showTextPicker = true
+                                }) {
+                                    Text(viewModel.selectedText.isEmpty ? "Choose detected text" : viewModel.selectedText)
+                                        .frame(maxWidth: .infinity, maxHeight: 40)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                
+                                Button {
+                                    showMemberModal = true
+                                } label: {
+                                    Image(systemName: "arrowshape.right.fill")
+                                        .resizable()
+                                        .frame(maxWidth: 16, maxHeight: 16)
+                                        .aspectRatio(1, contentMode: .fit)
+                                        .frame(maxWidth: 40, maxHeight: 40)
+                                }
+                                .frame(maxWidth: 50, maxHeight: 50)
+                                .cornerRadius(8)
+                                .disabled(viewModel.selectedText == "")
                             }
                             .buttonStyle(.borderedProminent)
-                            
-                            Button {
-                                showMemberModal = true
-                            } label: {
-                                Image(systemName: "arrowshape.right.fill")
-                                    .resizable()
-                                    .frame(maxWidth: 20, maxHeight: 20)
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .foregroundStyle(Color.white)
+                            .padding(.horizontal, 20)
+                        } else {
+                            HStack {
+                                Image(systemName: "info.circle")
+                                Text("No identified text found")
+                                    .italic()
                             }
-                            .frame(maxWidth: 48, maxHeight: 48)
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                            .disabled(viewModel.selectedText == "")
+                            .foregroundStyle(.red)
                         }
-                        .padding(.horizontal, 20)
                     }
-                }
-                
-                
-                Button(action: {
-                    if viewModel.capturedImage == nil {
-                        viewModel.takePhoto()
-                    } else {
-                        viewModel.selectedText = ""
-                        viewModel.capturedImage = nil
+                    
+                    
+                    Button(action: {
+                        if viewModel.capturedImage == nil {
+                            viewModel.takePhoto()
+                        } else {
+                            viewModel.selectedText = ""
+                            viewModel.capturedImage = nil
+                        }
+                    }) {
+                        Text(viewModel.capturedImage == nil ? "CAPTURE" : "CAPTURE ULANG")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(viewModel.capturedImage == nil ? Color.blue : Color.red)
+                            .cornerRadius(10)
                     }
-                }) {
-                    Text(viewModel.capturedImage == nil ? "SCAN" : "SCAN ULANG")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(viewModel.capturedImage == nil ? Color.blue : Color.red)
-                        .cornerRadius(10)
+                    .padding(.horizontal, 20)
                 }
-                .padding(.horizontal, 20)
                 
                 Spacer()
             }
             .padding(.horizontal)
-            .background(Color.white)
             .onAppear {
                 viewModel.configureSession()
             }
@@ -145,26 +152,45 @@ struct CaptureView: View {
             
             if showMemberModal {
                 ZStack {
-                    Color.black.opacity(0.5)
+                    Color.overlay
                         .ignoresSafeArea()
                         .onTapGesture {
-                            print("hai")
                             showMemberModal = false
                         }
-
+                    
                     VStack {
-                        ScrollView {
-                            VStack(spacing: 16) {
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                showMemberModal = false
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .foregroundStyle(.white.opacity(0.7))
+                                    .scaledToFit()
+                                    .frame(width: 28, height: 28)
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                        
+                        Spacer()
+                    }
+                    
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            if (!filteredMembers.isEmpty) {
                                 ForEach(filteredMembers) { member in
                                     DetailPopupView(member: member)
                                 }
+                            } else {
+                                NotFoundView()
                             }
-                            .padding(.vertical, 20)
-                            .padding(.horizontal, 40)
                         }
+                        .padding(.vertical)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .contentShape(Rectangle())
+                    .scrollIndicators(.hidden)
+                    .padding(.horizontal, 55)
                 }
             }
         }

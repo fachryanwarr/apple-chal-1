@@ -8,7 +8,7 @@ struct CapturePreview: UIViewRepresentable {
         let view = UIView()
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = CGRect(x: 0, y: 0, width: 350, height: 450)
+        previewLayer.frame = CGRect(x: 0, y: 0, width: 350, height: 440)
         view.layer.addSublayer(previewLayer)
         return view
     }
