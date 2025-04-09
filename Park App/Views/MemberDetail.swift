@@ -77,13 +77,13 @@ struct DetailRow: View {
                 Text(value)
                     .foregroundColor(.gray)
                     .fontWeight(.medium)
-                    .cornerRadius(8)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.black.opacity(0.03))
+                    .background(.gray.opacity(0.17))
+                    .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black.opacity(0.2))
+                            .stroke(Color.gray.opacity(0.4))
                     )
                 
                 if isPhone {
