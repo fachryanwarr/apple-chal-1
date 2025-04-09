@@ -52,7 +52,7 @@ struct MemberListView: View {
                     .padding(.horizontal, 10)
                     }
                     .scrollContentBackground(.hidden)
-                    .background(Color.white)
+        
                 }
                 
             }.searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Cari member berdasarkan nomor plat")
