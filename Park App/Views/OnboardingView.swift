@@ -40,7 +40,7 @@ struct OnboardingView: View {
                 if hasSeenIntroPages || currentPage == 2 {
                     VStack(spacing: 10) {
                         NavigationLink(destination: CaptureView()) {
-                            Text("Scan Plat Nomor")
+                            Text("Pindai Plat Nomor")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity, minHeight: 50)
@@ -49,7 +49,7 @@ struct OnboardingView: View {
                         }
                         
                         NavigationLink(destination: MemberListView()) {
-                            Text("List Daftar Member")
+                            Text("Daftar Member")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.black)
                                 .frame(maxWidth: .infinity, minHeight: 44)

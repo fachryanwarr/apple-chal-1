@@ -8,7 +8,7 @@ struct CaptureView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
-                Text("Scan Plat \n Nomor Kendaraan")
+                Text("Pindai Plat \n Nomor Kendaraan")
                     .multilineTextAlignment(.center)
                     .font(.title2)
                     .bold()
@@ -120,7 +120,7 @@ struct CaptureView: View {
                             viewModel.capturedImage = nil
                         }
                     }) {
-                        Text(viewModel.capturedImage == nil ? "CAPTURE" : "CAPTURE ULANG")
+                        Text(viewModel.capturedImage == nil ? "AMBIL FOTO" : "AMBIL ULANG")
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
