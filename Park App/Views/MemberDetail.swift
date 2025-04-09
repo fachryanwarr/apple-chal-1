@@ -72,11 +72,11 @@ struct DetailRow: View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.headline)
-                .fontWeight(.semibold)
 
             HStack {
                 Text(value)
-                    .foregroundColor(.black.opacity(0.65))
+                    .foregroundColor(.gray)
+                    .fontWeight(.medium)
                     .cornerRadius(8)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -95,10 +95,6 @@ struct DetailRow: View {
                             .padding(16)
                             .background(.blue)
                             .cornerRadius(8)
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .stroke(Color.blue)
-//                            )
                     }
                 }
             }
